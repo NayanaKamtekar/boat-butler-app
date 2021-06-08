@@ -26,3 +26,5 @@ client/npm.lock
 server/yarn.lock
 server/npm.lock
 yarn-error.log*
+
+server/.env
