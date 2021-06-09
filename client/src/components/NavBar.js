@@ -15,12 +15,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Tabs from "./Tabs";
 import FilterBar from "./FilterBar";
 import ComingSoon from "./ComingSoon";
+import SignOff from "./SignOff";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    flexGrow: 1,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -28,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    // backgroundColor: "#2f2c63"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -42,16 +43,23 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  title: {
+    flexGrow: 1,
+  },
+  userName: {
+    padding: theme.spacing(2),
+  },
+  panaleName: {
+    marginBottom: theme.spacing(3),
+  }
 }));
+
 const theme = createMuiTheme({
   overrides: {
     MuiListItem: {
       root: {
         "&:selected": {
           backgroundColor: "#8bb4f7",
-          // "&:hover": {
-          //   backgroundColor: "#8bb4f7",
-          // },
         },
       },
       button: {
@@ -64,10 +72,13 @@ const theme = createMuiTheme({
     },
   },
 });
-export default function ClippedDrawer({ currentUser }) {
+
+
+export default function NavBar({ currentUser, setCurrentUser }) {
   const classes = useStyles();
   const [selection, setSelection] = useState();
   const [showTab, setShowTab] = useState(true);
+  const [panelTitle, setPanelTitle] = useState("Proposals");
 
   const handelListClick = (e, text) => {
     if (text == "Proposals") {
@@ -75,6 +86,7 @@ export default function ClippedDrawer({ currentUser }) {
     } else {
       setShowTab(false);
     }
+    setPanelTitle(text);
   };
 
   return (
@@ -90,9 +102,11 @@ export default function ClippedDrawer({ currentUser }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             NJORD
           </Typography>
+          <Typography variant="h6" className={classes.userName}>{currentUser.user_name}</Typography>
+          <SignOff setCurrentUser={setCurrentUser} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -126,6 +140,7 @@ export default function ClippedDrawer({ currentUser }) {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
+        <Typography variant="h4" className={classes.panaleName}>{panelTitle}</Typography>
         {showTab && (
           <FilterBar currentUser={currentUser} setSelection={setSelection} />
         )}

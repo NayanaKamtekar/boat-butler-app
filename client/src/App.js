@@ -28,6 +28,7 @@ function App() {
             exact
             component={Navbar}
             currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
           />
         </Switch>
       </Router>

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Proposal({ status, currentUser, selection }) {
+export default function ProposalList({ status, currentUser, selection }) {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
 
@@ -73,9 +73,7 @@ export default function Proposal({ status, currentUser, selection }) {
     fetchdata();
   }, [selection]);
 
-  const handleCancel = (e, index) => {
-    const proposalID = rows?.[index]?.proposal_id;
-    console.log(proposalID)
+  const handleCancel = (e, proposalID) => {
     try {
       axios
         .put("http://localhost:3001/api/company/cancel", {
@@ -144,8 +142,8 @@ export default function Proposal({ status, currentUser, selection }) {
                     <Button
                       style={{ padding: 0 }}
                       variant="contained"
-                      color="primary"
-                      onClick={(e) => handleCancel(e, index)}
+                      color="secondary"
+                      onClick={(e) => handleCancel(e, row.proposal_id)}
                     >
                       Cancel
                     </Button>

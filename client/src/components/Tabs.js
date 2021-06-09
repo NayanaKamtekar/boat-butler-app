@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -9,7 +9,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import ProposalList from "./ProposalList";
-import Divider from "@material-ui/core/Divider";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,11 +48,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
-    // width: 600,
+    marginTop: theme.spacing(2),
   },
 }));
 
-export default function FullWidthTabs({currentUser, selection}) {
+export default function FullWidthTabs({ currentUser, selection }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -101,7 +100,11 @@ export default function FullWidthTabs({currentUser, selection}) {
       >
         {tabs.map((tab, index) => (
           <TabPanel value={value} index={index} dir={theme.direction}>
-            <ProposalList status={tab.status} currentUser={currentUser} selection={selection}/>
+            <ProposalList
+              status={tab.status}
+              currentUser={currentUser}
+              selection={selection}
+            />
           </TabPanel>
         ))}
       </SwipeableViews>
